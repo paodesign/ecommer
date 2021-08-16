@@ -24,15 +24,47 @@ public class User {
         this.lastname = lastname;
         this.address = address;
     }
-    
+    public  User(){
+
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
-    
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getLastname() {
+        return lastname;
+    }    
     public String getAddress() {
         return address;
     }
-    
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+    // public Basket getBasket() {
+    //     return basket;
+    // }
 
 
 }

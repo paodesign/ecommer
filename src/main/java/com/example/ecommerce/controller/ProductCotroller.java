@@ -68,19 +68,21 @@ public class ProductCotroller {
         savedProduct.setName(product.getName());
         savedProduct.setUnitPrice(product.getUnitPrice());
         savedProduct.setCategory(product.getCategory());
+        savedProduct.setDescription(product.getDescription());
+        savedProduct.setInventeryCode(product.getInventeryCode());
         productRepository.save(savedProduct);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/products/{name}")
+    @GetMapping(value = "/products/search/{name}")
     public @ResponseBody Iterable<Product> getAllByName(@PathVariable String name){
         Iterable<Product> products = productRepository.findByNameLike(name);
         return products;
     }
 
-    @GetMapping(value = "/products/{category}")
-    public @ResponseBody Iterable<Product> getAllByCategory(@PathVariable CategoryProduct category){
-        Iterable<Product> products = productRepository.findByCategory(category);
+    @GetMapping(value = "/products/category/{category}")
+    public @ResponseBody Iterable<Product> getAllByCategory(@PathVariable int category){
+        Iterable<Product> products = productRepository.findByCategory(CategoryProduct.values()[category]);
         return products;
     }
 }

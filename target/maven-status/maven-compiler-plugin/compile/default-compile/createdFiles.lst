@@ -1,0 +1,3 @@
+com\example\ecommerce\ServletInitializer.class
+com\example\ecommerce\EcommerceApplication.class
+com\example\ecommerce\config\RecipeRunner.class

@@ -57,6 +57,9 @@ public class UserController {
         }
         User savedUser = userUpdate.get();
         savedUser.setAddress(user.getAddress());
+        savedUser.setName(user.getName());
+        savedUser.setLastname(user.getLastname());
+        savedUser.setStartDate(user.getStartDate());
         userRepository.save(savedUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
