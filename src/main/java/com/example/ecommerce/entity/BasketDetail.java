@@ -34,13 +34,22 @@ public class BasketDetail {
     public BasketDetail(Product product, int amount) {
         this.product = product;
         this.amount = amount;
-        this.total = (amount * product.getUnitPrice());
         this.createdOn = LocalDate.now();
+        refreshTotal();
     }
 
-    public void addAmount() {
-        this.amount ++;
+    private void refreshTotal(){
         this.total = amount * product.getUnitPrice();
+    }
+
+    public void addAmountToOne() {
+        this.amount ++;
+        refreshTotal();
+    }
+
+    public void subsAmountToOne(){
+        this.amount --;
+        refreshTotal();
     }
 
     public void setProduct(Product product) {

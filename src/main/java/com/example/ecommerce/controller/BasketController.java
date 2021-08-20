@@ -98,4 +98,21 @@ public class BasketController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newBasket);
     }
+
+    @DeleteMapping("/{id}/products/{prodId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable int id, @PathVariable int prodId) {
+        Optional<Basket> basketTemp = basketRepository.findById(id);
+        Boolean existProduct = basketTemp.get().existProduct(prodId);
+        if(basketTemp.isEmpty() || existProduct == false){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        Basket newBasket = basketTemp.get();
+        newBasket.deleteProduct(prodId);
+        newBasket = basketRepository.save(newBasket);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+        
+    }
+
 }

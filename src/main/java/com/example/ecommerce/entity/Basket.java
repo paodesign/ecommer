@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 @Entity
 public class Basket {
     @Id
@@ -67,12 +69,22 @@ public class Basket {
         return false;
     }
 
+    public Boolean existProduct(int id) {
+        for (BasketDetail basketDetail : details) {
+
+            if(basketDetail.getProduct().getId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addProduct(Product product) {
         if (existProduct(product)) {
             for (BasketDetail basketDetail : details) {
 
                 if (product.getId() == basketDetail.getProduct().getId()) {
-                    basketDetail.addAmount();
+                    basketDetail.addAmountToOne();
                     return;
                 }
             }
@@ -81,6 +93,22 @@ public class Basket {
         BasketDetail newBasketDetail = new BasketDetail(product, 1);
         newBasketDetail.setBasket(this);
         details.add(newBasketDetail);
+    }
+
+    public void deleteProduct(int prodId){
+        for (int i = 0; i < details.size(); i++) {
+            BasketDetail detail = details.get(i);
+            if(detail.getProduct().getId() == prodId){
+                if(detail.getAmount() > 1){
+                    detail.subsAmountToOne();
+                }
+                else{
+                    details.remove(i);
+                }
+                return;
+            }
+        }
+    
     }
 
 }
