@@ -5,20 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
-
 @Entity
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private LocalDate creadLocalDate;
     private BasketStatus status;
 
     @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BasketDetail> details;
 
-    @OneToOne(mappedBy = "basket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Basket() {

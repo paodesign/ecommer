@@ -1,6 +1,9 @@
 package com.example.ecommerce.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.*;
 
@@ -14,10 +17,9 @@ public class User {
     private String address;
     private LocalDateTime startDate = LocalDateTime.now();
     
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "basket_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     //@MapsId
-    private Basket basket;
+    private List<Basket> baskets;
 
     public User(String name, String lastname, String address) {
         this.name = name;
@@ -25,7 +27,7 @@ public class User {
         this.address = address;
     }
     public  User(){
-
+        this.baskets = new ArrayList<Basket>();
     }
 
     public void setId(int id) {
@@ -44,9 +46,7 @@ public class User {
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
+  
     public int getId() {
         return id;
     }
