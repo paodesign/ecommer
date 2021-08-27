@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "f3f2043b-7095-4ba0-9170-4f3d556ccfa2",
+		"name": "ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Post Products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n    \"category\": \"OFFICE\",\r\n    \"description\": \"Genius 3 botones\",\r\n    \"name\": \"mouse\",\r\n    \"unitPrice\": 20,\r\n    \"inventeryCode\": \"asds\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/products",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/products/1",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/products/search/teclado",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products",
+								"search",
+								"teclado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/products",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/products/category/2",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"id\": 1,\r\n        \"name\": \"Teclado\",\r\n        \"description\": \"con luces\",\r\n        \"unitPrice\": 230.0,\r\n        \"category\": \"TECHNOLOGY\",\r\n        \"inventeryCode\": \"aac\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/products/1",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/products/2",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/users",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/users/2",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/users/1",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n       \"id\": 2,\r\n    \"name\": \"Javier\",\r\n    \"lastname\": \"Milei\",\r\n    \"address\": \"Av. libertad 2021\",\r\n    \"startDate\": \"2021-10-11T22:10:29.2185891\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/users/2",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n       \"id\": 4,\r\n    \"name\": \"Fulano\",\r\n    \"lastname\": \"Milei\",\r\n    \"address\": \"Av.los pinos 2021\",\r\n    \"startDate\": \"2021-10-11T22:10:29.2185891\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/users",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Basket",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n    \r\n    \"name\": \"Sultano\",\r\n    \"lastname\": \"De tal\",\r\n    \"address\": \"Av. libertad 2021\",\r\n    \"startDate\": \"2021-10-11T22:10:29.2185891\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/basket/products/1",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"basket",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Basket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/basket/user/2",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"basket",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get basket by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/basket/10",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"basket",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_ecommerce}}/basket/10/products/3",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"basket",
+								"10",
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_ecommerce",
+			"value": "http://localhost:8080"
+		}
+	]
+}
