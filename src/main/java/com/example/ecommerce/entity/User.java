@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+
+import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,19 +17,38 @@ public class User {
     private String name;
     private String lastname;
     private String address;
-    private LocalDateTime startDate = LocalDateTime.now();
+    private LocalDateTime startDate;
+    @Column(unique = true)
+    private String email;
+    private String password;
+    private Role role;
+    @Nullable
+    private int city_id;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     //@MapsId
     private List<Basket> baskets;
 
+    public User(){
+        startDate = LocalDateTime.now();
+        this.baskets = new ArrayList<Basket>();
+    }
+
     public User(String name, String lastname, String address) {
+        this();
         this.name = name;
         this.lastname = lastname;
         this.address = address;
     }
-    public  User(){
-        this.baskets = new ArrayList<Basket>();
+
+    public Role getRole() {
+        return role;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setId(int id) {
@@ -47,6 +68,9 @@ public class User {
         this.startDate = startDate;
     }
   
+    public String getPassword() {
+        return password;
+    }
     public int getId() {
         return id;
     }
@@ -62,9 +86,25 @@ public class User {
     public LocalDateTime getStartDate() {
         return startDate;
     }
-    // public Basket getBasket() {
-    //     return basket;
-    // }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        User u = (User)obj;
+        return this.email == u.email;        
+    }
+
+
+    @Override
+    public String toString() {
+        return name + lastname;
+    }
 
 }
