@@ -45,20 +45,11 @@ html(lang='en')
                                     a.dropdown-item(href='#!') Popular Items
                                 li
                                     a.dropdown-item(href='#!') New Arrivals
-
-                div.input-group
-                    div.form-outline
-                        input.form-control(type='search')
-                        label.form-label Buscar 
-                        button(type='button').btn.btn-primary
-                            i.fas.fa-search 
-                    
                     form.d-flex
                         button.btn.btn-outline-dark(type='submit')
                             i.bi-cart-fill.me-1
                             | Cart
                             span#basketCount.badge.bg-dark.text-white.ms-1.rounded-pill 0
-                
 
         // Header
         header.bg-dark.py-5
@@ -70,9 +61,50 @@ html(lang='en')
         // Section
         section.py-5
             .container.px-4.px-lg-5.mt-5
+                ul.list-group
+                    div.list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
+                        div.d-flex.justify-content-start
+                            div
+                                img.img-fluid(src='https://dummyimage.com/200x150/dee2e6/6c757d.jpg', alt='lay')
+                            div.list-group-item-content
+                                h4.fw-bolder Here goes the product name
+                                p
+                                    small Brief description
+                                span.badge.bg-dark.text-white.ms-1.badge-pill 3 in cart
+                                h3 $100
+                        div
+                            button.btn.btn-outline-dark.mt-auto Remove 
+                
+                br
+
                 .row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center#productsWrapper
-            
-                        
+
+                    .col.mb-5
+                        .card.h-100
+                            // Sale badge
+                            .badge.bg-dark.text-white.position-absolute(style='top: 0.5rem; right: 0.5rem;') CATEGORY
+                            // Product image
+                            img.card-img-top(src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg', alt='...')
+                            // Product details
+                            .card-body.p-4
+                                .text-center
+                                    // Product name
+                                    h5.fw-bolder Sample Item
+                                    // Product reviews
+                                    .d-flex.justify-content-center.small.text-warning.mb-2
+                                        .bi-star-fill
+                                        .bi-star-fill
+                                        .bi-star-fill
+                                        .bi-star-fill
+                                        .bi-star-fill
+                                    // Product price
+                                    span.text-muted.text-decoration-line-through $20.00
+                                    | $18.00
+                            // Product actions
+                            .card-footer.p-4.pt-0.border-top-0.bg-transparent
+                                .text-center
+                                    a#btnAdd.btn.btn-outline-dark.mt-auto(href='#') Add to cart
+                    
         // Footer
         footer.py-5.bg-dark
             .container
