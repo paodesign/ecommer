@@ -61,6 +61,29 @@ html(lang='en')
         // Section
         section.py-5
             .container.px-4.px-lg-5.mt-5
+
+                .row.row-cols-2.row-cols-md-3.justify-content-center
+                    .col.mb-5
+                        div.row.justify-content-center(style="--bs-gutter-x: 0rem;")
+                            div.card
+                                div.card-header Iniciar sesión
+                                div.card-body
+                                    form(action="", method="POST")
+                                        div.form-group.row
+                                            label(for="email_address").col-md-4.col-form-label.text-md-right Email
+                                            div.col-md-8
+                                                input(type="email", placeholder="Email", required="required autofocus").form-control#username
+                                        br
+                                        div.form-group.row
+                                            label(for="password").col-md-4.col-form-label.text-md-right Contraseña
+                                            div.col-md-8
+                                               input(type="password", placeholder="Contraseña", required="required").form-control#password 
+                                        br
+                                        div.container.text-center
+                                            button(type="submit").btn.btn-outline-dark Ingresar
+
+
+
                 ul.list-group
                     div.list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
                         div.d-flex.justify-content-start
