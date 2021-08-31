@@ -133,81 +133,81 @@ html(lang='en')
                     p.lead Detalle de tu compra.
                 .row 
                     div.col-md-4.order-md-2.mb-4
-                    h4.d-flex.justify-content-between.align-items-center.mb-3
-                        span.text-muted Your cart
-                        span.badge.badge-secondary.badge-pill 3
-                    ul.list-group.mb-3
-                        li.list-group-item.d-flex.justify-content-between.lh-condensed
-                            div
-                                h6.my-0 Product name
-                                small.text-muted Brief description
-                            span.text-muted  $12
-                        li.list-group-item.d-flex.justify-content-between.lh-condensed
-                            div
-                                h6.my-0 Second product
-                                small.text-muted Brief description
-                            span.text-muted  $8
-                        li.list-group-item.d-flex.justify-content-between.lh-condensed
-                            div
-                                h6.my-0 Third item
-                                small.text-muted Brief description
-                            span.text-muted  $5
+                        h4.d-flex.justify-content-between.align-items-center.mb-3
+                            span.text-muted Your cart
+                            span.badge.badge-secondary.badge-pill 3
+                        ul.list-group.mb-3
+                            li.list-group-item.d-flex.justify-content-between.lh-condensed
+                                div
+                                    h6.my-0 Product name
+                                    small.text-muted Brief description
+                                span.text-muted  $12
+                            li.list-group-item.d-flex.justify-content-between.lh-condensed
+                                div
+                                    h6.my-0 Second product
+                                    small.text-muted Brief description
+                                span.text-muted  $8
+                            li.list-group-item.d-flex.justify-content-between.lh-condensed
+                                div
+                                    h6.my-0 Third item
+                                    small.text-muted Brief description
+                                span.text-muted  $5
 
-                        li.list-group-item.d-flex.justify-content-between
-                            span Total (USD)
-                            strong  $20
+                            li.list-group-item.d-flex.justify-content-between
+                                span Total (USD)
+                                strong  $20
 
-                div.col-md-8.order-md-1
-                    h4.mb-3 Billing address
-                    form(novalidate).needs-validation
-                        .row 
-                            div.col-md-6.mb-3
-                                label(for="firstName") First name
-                                input(type="text", placeholder="First name", value="", required).form-control#firstName
-                                div.invalid-feedback Valid first name is required.
-                            div.col-md-6.mb-3
-                                label(for="lastName") Last name
-                                input(type="text", placeholder="Last name", value="", required).form-control#lastName
-                                div.invalid-feedback Valid last name is required.
-                        .row
-                            div.col-md-6.mb-3
-                                label(for="email") Email
-                                input(type="email", placeholder="email", value="email", required).form-control#email
-                                div.invalid-feedback Valid email is required.
-                            div.col-md-6.mb-3
-                                label(for="phone") Phone number 
-                                input(type="text", placeholder="", required).form-control#phone
-                                div.invalid-feedback Valid phone number  is required.
+                    div.col-md-8.order-md-1
+                        h4.mb-3 Billing address
+                        form(novalidate).needs-validation
+                            .row 
+                                div.col-md-6.mb-3
+                                    label(for="firstName") First name
+                                    input(type="text" placeholder="first name" value="" required).form-control#firstName
+                                    div.invalid-feedback Valid first name is required.
+                                div.col-md-6.mb-3
+                                    label(for="lastName") Last name
+                                    input(type="text" placeholder="last name" value="" required).form-control#lastName
+                                    div.invalid-feedback Valid last name is required.
+                            .row
+                                div.col-md-6.mb-3
+                                    label(for="email") Email
+                                    input(type="email" placeholder="email" value="email" required).form-control#email
+                                    div.invalid-feedback Valid email is required.
+                                div.col-md-6.mb-3
+                                    label(for="phone") Phone number 
+                                    input(type="text", placeholder="phone number", required).form-control#phone
+                                    div.invalid-feedback Valid phone number  is required.
 
-                        .row 
-                            div.col-md-6.mb-3
-                                label(for="invoce") Invoice type
-                                select(required).form-select.d-block.w-100#invoce
-                                    option(value="")  Choose...
-                                    option(value="") A 
-                                    option(value="") B
-                                    option(value="") C 
-                                    option(value="") D 
-                                div.invalid-feedback Please select a valid invoce type.
-                            div.col-md-6.mb-3
-                                label(for="city") City
-                                select(required).form-select.d-block.w-100#city
-                                    option(value="")  Choose...
-                                    option(value="") Resistencia
-                                div.invalid-feedback Please select a valid city.
+                            .row 
+                                div.col-md-6.mb-3
+                                    label(for="invoce") Invoice type
+                                    select(required).form-select.d-block.w-100#invoce
+                                        option(value="")  Choose...
+                                        option(value="") A 
+                                        option(value="") B
+                                        option(value="") C 
+                                        option(value="") D 
+                                    div.invalid-feedback Please select a valid invoce type.
+                                div.col-md-6.mb-3
+                                    label(for="city") City
+                                    select(required).form-select.d-block.w-100#city
+                                        option(value="")  Choose...
+                                        option(value="") Resistencia
+                                    div.invalid-feedback Please select a valid city.
 
-                        div.mb-3
-                            label(for="address") Address
-                            input(type="text", placeholder="1234 Main St", required).form-control#address
-                            div.invalid-feedback Please enter your shipping address.
+                            div.mb-3
+                                label(for="address") Address
+                                input(type="text" placeholder="1234 Main St" required).form-control#address
+                                div.invalid-feedback Please enter your shipping address.
                         
-                        div.mb-3
-                            label(for="observation").form-label Observation
-                            textarea(rows="3").form-control#observation
+                            div.mb-3
+                                label(for="observation").form-label Observation
+                                textarea(rows="3").form-control#observations
                         
                         hr.mb-4
-                            div.text-center
-                                button(type="submit").btn.btn-outline-dark.btn-lg.btn-block Checkout            
+                        div.text-center
+                            button(type="submit").btn.btn-outline-dark.btn-lg.btn-block Checkout            
                     
         // Footer
         footer.py-5.bg-dark
