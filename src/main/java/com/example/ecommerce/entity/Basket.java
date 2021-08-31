@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Baskets")
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,8 @@ public class Basket {
     private User user;
 
     public Basket() {
+        this.status = BasketStatus.INPROGRESS;
+        this.creadLocalDate = LocalDate.now();
         if(this.details == null || this.details.size() == 0){
             this.details = new ArrayList<BasketDetail>();
         }
@@ -29,8 +31,6 @@ public class Basket {
     public Basket(User user) {
         this();
         this.user = user;
-        this.creadLocalDate = LocalDate.now();
-        this.status = BasketStatus.INPROGRESS;
     }
 
     public Basket(User user, BasketDetail detail) {
@@ -40,6 +40,10 @@ public class Basket {
 
     public void setStatus(BasketStatus status) {
         this.status = status;
+    }
+
+    public LocalDate getCreadLocalDate() {
+        return creadLocalDate;
     }
 
     public BasketStatus getStatus() {
