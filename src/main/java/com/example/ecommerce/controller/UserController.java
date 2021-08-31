@@ -2,11 +2,8 @@ package com.example.ecommerce.controller;
 
 import com.example.ecommerce.repository.UserRepository;
 import com.example.ecommerce.service.UserService;
-
 import java.util.Optional;
-
-import com.example.ecommerce.dto.LoginRequestDto;
-import com.example.ecommerce.dto.LoginResponseDto;
+import com.example.ecommerce.dto.*;
 import com.example.ecommerce.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,18 +19,18 @@ public class UserController {
     private UserService userService;
 
     // public UserController(UserService userService) {
-    //     this.userService = userService;
+    // this.userService = userService;
     // };
 
     @PostMapping(value = "/login")
-    public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto req){
+    public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto req) {
         var resp = userService.tryLogin(req.Email, req.Password);
         if (!resp.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        return ResponseEntity.ok(resp.get()); 
-    } 
+        return ResponseEntity.ok(resp.get());
+    }
 
     @GetMapping
     public @ResponseBody Iterable<User> getAll() {
@@ -41,8 +38,14 @@ public class UserController {
     }
 
     @PostMapping
-    public User save(@RequestBody User user) {
-        return userRepository.save(user);
+    public ResponseEntity<UserResponseDto> save(@RequestBody UserRequestDto req) {
+        var response = userService.createUser(req);
+        
+        if (response.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.ok(response.get());
     }
 
     @GetMapping(value = "/{id}")
@@ -69,14 +72,13 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user){
+    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user) {
         Optional<User> userUpdate = userRepository.findById(id);
 
-        if(userUpdate.isEmpty()){
+        if (userUpdate.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         User savedUser = userUpdate.get();
-        savedUser.setAddress(user.getAddress());
         savedUser.setName(user.getName());
         savedUser.setLastname(user.getLastname());
         savedUser.setStartDate(user.getStartDate());

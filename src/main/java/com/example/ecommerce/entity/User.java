@@ -3,10 +3,6 @@ package com.example.ecommerce.entity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Entity;
-
-import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
 @Entity(name = "Users")
@@ -16,14 +12,16 @@ public class User {
     private int id;
     private String name;
     private String lastname;
-    private String address;
     private LocalDateTime startDate;
     @Column(unique = true)
-    private String email;
+    private String username;
     private String password;
     private Role role;
-    @Nullable
-    private int city_id;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_id", referencedColumnName = "id")
+    private Contact contactInfo;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     //@MapsId
@@ -34,19 +32,19 @@ public class User {
         this.baskets = new ArrayList<Basket>();
     }
 
-    public User(String name, String lastname, String address) {
+    public User(String name, String lastname, String username, String password, Role role) {
         this();
         this.name = name;
         this.lastname = lastname;
-        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public Role getRole() {
         return role;
     }
-    public String getEmail() {
-        return email;
-    }
+
     public void setRole(Role role) {
         this.role = role;
     }
@@ -61,9 +59,6 @@ public class User {
         this.lastname = lastname;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
@@ -80,11 +75,25 @@ public class User {
     public String getLastname() {
         return lastname;
     }    
-    public String getAddress() {
-        return address;
-    }
+
     public LocalDateTime getStartDate() {
         return startDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Contact getContact() {
+        return contactInfo;
+    }
+
+    public void setContact(Contact contactInfo) {
+        this.contactInfo = contactInfo;
     }
 
     @Override
@@ -98,7 +107,7 @@ public class User {
         }
 
         User u = (User)obj;
-        return this.email == u.email;        
+        return this.username == u.username;        
     }
 
 

@@ -3,6 +3,8 @@ package com.example.ecommerce.service;
 import java.security.*;
 import java.util.*;
 import com.example.ecommerce.dto.*;
+import com.example.ecommerce.entity.Role;
+import com.example.ecommerce.entity.User;
 import com.example.ecommerce.repository.*;
 
 import org.springframework.stereotype.Service;
@@ -17,22 +19,29 @@ public class UserService {
     }
 
     public Optional<LoginResponseDto> tryLogin(String email, String password){
-        var result = userRepository.findByEmail(email);
+        var result = userRepository.findByUsername(email);
 
-        if(result.isEmpty() || result.get().getPassword().equals(password)){
+        if(result == null || result.getPassword().equals(password)){
             return Optional.ofNullable(null);
         }
 
-
         var resp = new LoginResponseDto();
-        resp.mapFromEntity(result.get());
+        resp.mapFromEntity(result);
 
-        return Optional.ofNullable(resp);
+        return Optional.of(resp);
     }
 
-    public Optional<List<UserDto>> getUsersByCity(int cityId){
+    public Optional<List<UserResponseDto>> getUsersByCity(int cityId){
 
         return Optional.ofNullable(null);
+    }
+
+    public Optional<UserResponseDto> createUser(UserRequestDto dto){
+        Role role = dto.role.isBlank() ? Role.GUEST : Role.valueOf(dto.role);
+        var user = new User(dto.name, dto.lastname, dto.username, dto.password, role);
+
+        var entity = userRepository.save(user);
+        return Optional.ofNullable(new UserResponseDto().mapFromEntity(entity));
     }
 
     private String saltyPassword(String pwd){

@@ -1,7 +1,6 @@
 package com.example.ecommerce.config;
 
 import java.util.List;
-
 import com.example.ecommerce.entity.*;
 import com.example.ecommerce.repository.UserRepository;
 
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecipeRunner implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository recetaRepository;
+    // @Autowired
+    // private UserRepository recetaRepository;
 
     @Override
     public void run(String... args) throws Exception {
