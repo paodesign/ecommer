@@ -22,7 +22,7 @@ html(lang='en')
     body
 
         // Navigation
-        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light#nav
             .container.px-4.px-lg-5
                 a.navbar-brand(href='#!') Start Bootstrap
                 button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
@@ -52,7 +52,7 @@ html(lang='en')
                             span#basketCount.badge.bg-dark.text-white.ms-1.rounded-pill 0
 
         // Header
-        header.bg-dark.py-5
+        header.bg-dark.py-5#header
             .container.px-4.px-lg-5.my-5
                 .text-center.text-white
                     h1.display-4.fw-bolder Shop in style
@@ -61,8 +61,8 @@ html(lang='en')
         // Section
         section.py-5
             .container.px-4.px-lg-5.mt-5
-
-                .row.row-cols-2.row-cols-md-3.justify-content-center
+                //Login section
+                .row.row-cols-2.row-cols-md-3.justify-content-center#viewLogin
                     .col.mb-5
                         div.row.justify-content-center(style="--bs-gutter-x: 0rem;")
                             div.card
@@ -82,25 +82,26 @@ html(lang='en')
                                         div.container.text-center
                                             button(type="submit").btn.btn-outline-dark Ingresar
 
-
-
-                ul.list-group
-                    div.list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
-                        div.d-flex.justify-content-start
+                //Basket section
+                div#viewBasket
+                    ul.list-group
+                        div.list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
+                            div.d-flex.justify-content-start
+                                div
+                                    img.img-fluid(src='https://dummyimage.com/200x150/dee2e6/6c757d.jpg', alt='lay')
+                                div.list-group-item-content
+                                    h4.fw-bolder Here goes the product name
+                                    p
+                                        small Brief description
+                                    span.badge.bg-dark.text-white.ms-1.badge-pill 3 in cart
+                                    h3 $100
                             div
-                                img.img-fluid(src='https://dummyimage.com/200x150/dee2e6/6c757d.jpg', alt='lay')
-                            div.list-group-item-content
-                                h4.fw-bolder Here goes the product name
-                                p
-                                    small Brief description
-                                span.badge.bg-dark.text-white.ms-1.badge-pill 3 in cart
-                                h3 $100
-                        div
-                            button.btn.btn-outline-dark.mt-auto Remove 
+                                button.btn.btn-outline-dark.mt-auto Remove 
                 
                 br
 
-                .row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center#productsWrapper
+                //Products section
+                .row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center#viewProduct
 
                     .col.mb-5
                         .card.h-100
@@ -127,7 +128,9 @@ html(lang='en')
                             .card-footer.p-4.pt-0.border-top-0.bg-transparent
                                 .text-center
                                     a#btnAdd.btn.btn-outline-dark.mt-auto(href='#') Add to cart
-            .container
+
+            //Checkout section                    
+            .container#viewCheckout
                 div.py-5.text-center
                     h2 Checkout form
                     p.lead Detalle de tu compra.
