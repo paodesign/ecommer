@@ -5,10 +5,20 @@ const loginSection = document.querySelector("#viewLogin");
 const basketSection = document.querySelector("#viewBasket");
 const productsSection = document.querySelector("#viewProduct");
 const checkoutSection = document.querySelector("#viewCheckout");
+const btnLogin = document.querySelector("#btnLogin");
 const sessionStorageKey = "userKey";
+const apiUrl = 'http://localhost:8080/';
+var listProducts = [];
 
 
-window.addEventListener('load', addToCart, false);
+window.addEventListener('load', () =>{
+    viewByOperationType("products");
+    loadProductsList();
+}, false);
+
+btnLogin.addEventListener('click', ()=>{
+    viewByOperationType("login");
+})
 
 function storeUser(user){
     sessionStorage.setItem(sessionStorageKey,user);
@@ -18,11 +28,13 @@ function getStoredUser(){
     sessionStorage.getItem(sessionStorageKey);
 }
 
+
 function viewByOperationType(operationType){
     if(operationType == "login"){
         basketSection.className='hide-div',
         productsSection.className='hide-div',
-        checkoutSection.className='hide-div'
+        checkoutSection.className='hide-div',
+        loginSection.classList.remove("hide-div")
     }
 
     else if(operationType == "basket"){
@@ -57,11 +69,12 @@ const products = [
     {id:3, name:"product3", price: 70, isSale: true},
     {id:4, name:"product4", price: 123, rated: 3}]
 
-function addToCart() {
-    viewByOperationType("checkout")
-    fetch('http://localhost:8080/products')
+function loadProductsList() {
+    fetch(apiUrl + "products")
         .then(response => response.json())
-        .then(prods => loadProductsList(prods))
+        .then(prods => listProducts = prods)
+        .then(()=>renderProductsList())
+
 }
     
 function priceFormat(unitPrice) {
@@ -77,12 +90,12 @@ function priceFormat(unitPrice) {
     return formatter.format(unitPrice);    
 }
 
-function loadProductsList(products) {
-    products.forEach(prd => {
+function renderProductsList() {
+    listProducts.forEach(prd => {
         const div = document.createElement("div");
         div.className = "col mb-5";
         div.appendChild(createProductCard(prd));
-        document.querySelector('#productsWrapper').append(div);
+        document.querySelector('#viewProduct').append(div);
 
         const btnAdd = document.querySelector("#btnAdd"+prd.id);
         btnAdd.addEventListener("click", ev => {
