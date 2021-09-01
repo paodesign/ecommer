@@ -3,16 +3,16 @@ package com.example.ecommerce.dto;
 import com.example.ecommerce.entity.User;
 
 public class LoginResponseDto {
-    public int Id;
-    public String Name;
-    public String Username;
-    public String Role;
+    public int id;
+    public String name;
+    public String username;
+    public String role;
 
     public void mapFromEntity(User u) {
-        this.Id = u.getId();
-        this.Name = String.format("s% s%", u.getName(), u.getLastname());
-        this.Username = u.getUsername();
-        this.Role = u.getRole().name();
+        this.id = u.getId();
+        this.name = String.format("%s %s", u.getName(), u.getLastname());
+        this.username = u.getUsername();
+        this.role = u.getRole().name();
     }
 
 }

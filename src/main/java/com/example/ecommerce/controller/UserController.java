@@ -1,7 +1,7 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.repository.UserRepository;
-import com.example.ecommerce.service.UserService;
+import com.example.ecommerce.service.AuthService;
 import java.util.Optional;
 import com.example.ecommerce.dto.*;
 import com.example.ecommerce.entity.*;
@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserService userService;
+    private AuthService authService;
 
     // public UserController(UserService userService) {
     // this.userService = userService;
@@ -24,8 +25,8 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto req) {
-        var resp = userService.tryLogin(req.Email, req.Password);
-        if (!resp.isEmpty()) {
+        var resp = authService.tryLogin(req.username, req.password);
+        if (resp.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
@@ -37,9 +38,9 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping(value = "/register")
     public ResponseEntity<UserResponseDto> save(@RequestBody UserRequestDto req) {
-        var response = userService.createUser(req);
+        var response = authService.registerUser(req);
         
         if (response.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
