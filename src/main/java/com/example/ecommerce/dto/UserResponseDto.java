@@ -3,23 +3,23 @@ import com.example.ecommerce.entity.*;
 
 public class UserResponseDto {
 
-    public int Id;
+    public int id;
     public String Name;
-    public String Address;
-    public String Username;
-    public String Role;
-    public String Password;
-    public String City;
+    public String address;
+    public String psername;
+    public String role;
+    public String password;
+    public String city;
 
 
     public UserResponseDto mapFromEntity(User u){
-        this.Id = u.getId();
-        this.Name = String.format("s% s%", u.getName(), u.getLastname());
-        this.Username = u.getUsername();
-        this.Role = u.getRole().name();
+        this.id = u.getId();
+        this.Name = String.format("%s %s", u.getName(), u.getLastname());
+        this.psername = u.getUsername();
+        this.role = u.getRole().name();
         if (u.getContact() != null) {
-            this.Address = u.getContact().getAddress();
-            this.City = u.getContact().getCity();            
+            this.address = u.getContact().getAddress();
+            this.city = u.getContact().getCity();            
         }
         return this;
     }

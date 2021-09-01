@@ -1,5 +1,7 @@
 package com.example.ecommerce.entity;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class User {
         this.name = name;
         this.lastname = lastname;
         this.username = username;
-        this.password = password;
+        this.password = saltyPassword(password);
         this.role = role;
     }
 
@@ -63,8 +65,8 @@ public class User {
         this.startDate = startDate;
     }
   
-    public String getPassword() {
-        return password;
+    public boolean isMatch(String rawPassword) {
+        return password.equals(saltyPassword(rawPassword));
     }
     public int getId() {
         return id;
@@ -94,6 +96,36 @@ public class User {
 
     public void setContact(Contact contactInfo) {
         this.contactInfo = contactInfo;
+    }
+
+    private String saltyPassword(String pwd){
+        try   
+        {
+            /* MessageDigest instance for MD5. */  
+            MessageDigest m = MessageDigest.getInstance("MD5");  
+              
+            /* Add plain-text password bytes to digest using MD5 update() method. */  
+            m.update(pwd.getBytes());  
+              
+            /* Convert the hash value into bytes */   
+            byte[] bytes = m.digest();  
+              
+            /* The bytes array has bytes in decimal form. Converting it into hexadecimal format. */  
+            StringBuilder s = new StringBuilder();  
+            for(int i=0; i< bytes.length ;i++)  
+            {  
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
+            }  
+              
+            /* Complete hashed password in hexadecimal format */  
+            pwd = s.toString();  
+        }   
+        catch (NoSuchAlgorithmException e)   
+        {  
+            e.printStackTrace();  
+        }
+
+        return pwd;
     }
 
     @Override
