@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f3f2043b-7095-4ba0-9170-4f3d556ccfa2",
+		"_postman_id": "e4ae3c5a-43d4-45e3-9a9a-18e79cbe0a9e",
 		"name": "ecommerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -238,13 +238,13 @@
 					"response": []
 				},
 				{
-					"name": "Post Users",
+					"name": "Register Users",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "   {\r\n       \"id\": 4,\r\n    \"name\": \"Fulano\",\r\n    \"lastname\": \"Milei\",\r\n    \"address\": \"Av.los pinos 2021\",\r\n    \"startDate\": \"2021-10-11T22:10:29.2185891\"\r\n    }",
+							"raw": "   {\r\n    \"name\": \"Jhon\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"jhon@ecommerce.com\",\r\n    \"password\": \"Jhon321\",\r\n    \"role\": \"USER\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -252,12 +252,40 @@
 							}
 						},
 						"url": {
-							"raw": "{{url_ecommerce}}/users",
+							"raw": "{{url_ecommerce}}/users/register",
 							"host": [
 								"{{url_ecommerce}}"
 							],
 							"path": [
-								"users"
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"jhon@ecommerce.com\",\r\n    \"password\": \"Jhon321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_ecommerce}}/users/login",
+							"host": [
+								"{{url_ecommerce}}"
+							],
+							"path": [
+								"users",
+								"login"
 							]
 						}
 					},

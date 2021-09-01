@@ -19,10 +19,6 @@ public class UserController {
     @Autowired
     private AuthService authService;
 
-    // public UserController(UserService userService) {
-    // this.userService = userService;
-    // };
-
     @PostMapping(value = "/login")
     public ResponseEntity<LoginResponseDto> Login(@RequestBody LoginRequestDto req) {
         var resp = authService.tryLogin(req.username, req.password);
