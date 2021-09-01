@@ -1,7 +1,55 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
+const loginSection = document.querySelector("#viewLogin");
+const basketSection = document.querySelector("#viewBasket");
+const productsSection = document.querySelector("#viewProduct");
+const checkoutSection = document.querySelector("#viewCheckout");
+const sessionStorageKey = "userKey";
+
+
 window.addEventListener('load', addToCart, false);
+
+function storeUser(user){
+    sessionStorage.setItem(sessionStorageKey,user);
+}
+
+function getStoredUser(){
+    sessionStorage.getItem(sessionStorageKey);
+}
+
+function viewByOperationType(operationType){
+    if(operationType == "login"){
+        basketSection.className='hide-div',
+        productsSection.className='hide-div',
+        checkoutSection.className='hide-div'
+    }
+
+    else if(operationType == "basket"){
+        loginSection.className='hide-div',
+        productsSection.className='hide-div',
+        checkoutSection.className='hide-div'
+    }
+
+    else if(operationType == "products"){
+        loginSection.className='hide-div',
+        basketSection.className='hide-div',
+        checkoutSection.className='hide-div'
+    }
+
+    else if(operationType == "checkout"){
+        loginSection.className='hide-div',
+        basketSection.className='hide-div',
+        productsSection.className='hide-div'
+    }
+    else{
+        document.write("soy el else")
+        console.error("no funciona")
+    }
+
+}
+
+
 
 const products = [ 
     {id:1, name:"product1", price: 40, rated: 5}, 
@@ -10,6 +58,7 @@ const products = [
     {id:4, name:"product4", price: 123, rated: 3}]
 
 function addToCart() {
+    viewByOperationType("checkout")
     fetch('http://localhost:8080/products')
         .then(response => response.json())
         .then(prods => loadProductsList(prods))
