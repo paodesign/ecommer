@@ -5,11 +5,18 @@ const loginSection = document.querySelector("#viewLogin");
 const basketSection = document.querySelector("#viewBasket");
 const productsSection = document.querySelector("#viewProduct");
 const checkoutSection = document.querySelector("#viewCheckout");
+const sessionStorageKey = "userKey";
 
 
 window.addEventListener('load', addToCart, false);
 
+function storeUser(user){
+    sessionStorage.setItem(sessionStorageKey,user);
+}
 
+function getStoredUser(){
+    sessionStorage.getItem(sessionStorageKey);
+}
 
 function viewByOperationType(operationType){
     if(operationType == "login"){
