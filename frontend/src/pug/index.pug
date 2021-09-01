@@ -61,6 +61,29 @@ html(lang='en')
         // Section
         section.py-5
             .container.px-4.px-lg-5.mt-5
+
+                .row.row-cols-2.row-cols-md-3.justify-content-center
+                    .col.mb-5
+                        div.row.justify-content-center(style="--bs-gutter-x: 0rem;")
+                            div.card
+                                div.card-header Iniciar sesión
+                                div.card-body
+                                    form(action="", method="POST")
+                                        div.form-group.row
+                                            label(for="email_address").col-md-4.col-form-label.text-md-right Email
+                                            div.col-md-8
+                                                input(type="email", placeholder="Email", required="required autofocus").form-control#username
+                                        br
+                                        div.form-group.row
+                                            label(for="password").col-md-4.col-form-label.text-md-right Contraseña
+                                            div.col-md-8
+                                               input(type="password", placeholder="Contraseña", required="required").form-control#password 
+                                        br
+                                        div.container.text-center
+                                            button(type="submit").btn.btn-outline-dark Ingresar
+
+
+
                 ul.list-group
                     div.list-group-item.list-group-item-action.d-flex.justify-content-between.align-items-center
                         div.d-flex.justify-content-start
@@ -104,6 +127,87 @@ html(lang='en')
                             .card-footer.p-4.pt-0.border-top-0.bg-transparent
                                 .text-center
                                     a#btnAdd.btn.btn-outline-dark.mt-auto(href='#') Add to cart
+            .container
+                div.py-5.text-center
+                    h2 Checkout form
+                    p.lead Detalle de tu compra.
+                .row 
+                    div.col-md-4.order-md-2.mb-4
+                        h4.d-flex.justify-content-between.align-items-center.mb-3
+                            span.text-muted Your cart
+                            span.badge.badge-secondary.badge-pill 3
+                        ul.list-group.mb-3
+                            li.list-group-item.d-flex.justify-content-between.lh-condensed
+                                div
+                                    h6.my-0 Product name
+                                    small.text-muted Brief description
+                                span.text-muted  $12
+                            li.list-group-item.d-flex.justify-content-between.lh-condensed
+                                div
+                                    h6.my-0 Second product
+                                    small.text-muted Brief description
+                                span.text-muted  $8
+                            li.list-group-item.d-flex.justify-content-between.lh-condensed
+                                div
+                                    h6.my-0 Third item
+                                    small.text-muted Brief description
+                                span.text-muted  $5
+
+                            li.list-group-item.d-flex.justify-content-between
+                                span Total (USD)
+                                strong  $20
+
+                    div.col-md-8.order-md-1
+                        h4.mb-3 Billing address
+                        form(novalidate).needs-validation
+                            .row 
+                                div.col-md-6.mb-3
+                                    label(for="firstName") First name
+                                    input(type="text" placeholder="first name" value="" required).form-control#firstName
+                                    div.invalid-feedback Valid first name is required.
+                                div.col-md-6.mb-3
+                                    label(for="lastName") Last name
+                                    input(type="text" placeholder="last name" value="" required).form-control#lastName
+                                    div.invalid-feedback Valid last name is required.
+                            .row
+                                div.col-md-6.mb-3
+                                    label(for="email") Email
+                                    input(type="email" placeholder="email" value="email" required).form-control#email
+                                    div.invalid-feedback Valid email is required.
+                                div.col-md-6.mb-3
+                                    label(for="phone") Phone number 
+                                    input(type="text", placeholder="phone number", required).form-control#phone
+                                    div.invalid-feedback Valid phone number  is required.
+
+                            .row 
+                                div.col-md-6.mb-3
+                                    label(for="invoce") Invoice type
+                                    select(required).form-select.d-block.w-100#invoce
+                                        option(value="")  Choose...
+                                        option(value="") A 
+                                        option(value="") B
+                                        option(value="") C 
+                                        option(value="") D 
+                                    div.invalid-feedback Please select a valid invoce type.
+                                div.col-md-6.mb-3
+                                    label(for="city") City
+                                    select(required).form-select.d-block.w-100#city
+                                        option(value="")  Choose...
+                                        option(value="") Resistencia
+                                    div.invalid-feedback Please select a valid city.
+
+                            div.mb-3
+                                label(for="address") Address
+                                input(type="text" placeholder="1234 Main St" required).form-control#address
+                                div.invalid-feedback Please enter your shipping address.
+                        
+                            div.mb-3
+                                label(for="observation").form-label Observation
+                                textarea(rows="3").form-control#observations
+                        
+                        hr.mb-4
+                        div.text-center
+                            button(type="submit").btn.btn-outline-dark.btn-lg.btn-block Checkout            
                     
         // Footer
         footer.py-5.bg-dark
