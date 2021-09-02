@@ -21,16 +21,18 @@ html(lang='en')
 
     body
 
+        - var categories = ["TECHNOLOGY", "OFFICE", "GAMES"];
+
         // Navigation
         nav.navbar.navbar-expand-lg.navbar-light.bg-light#nav
             .container.px-4.px-lg-5
-                a.navbar-brand(href='#!') Start Bootstrap
+                a.navbar-brand(href='#!') E-commerce
                 button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
                     span.navbar-toggler-icon
                 #navbarSupportedContent.collapse.navbar-collapse
                     ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
                         li.nav-item
-                            a.nav-link.active(aria-current='page' href='#!') Home
+                            a.nav-link.active(aria-current='page' href='#!')#btnHome Home
                         li.nav-item
                             a.nav-link(href='#!') About
                         li.nav-item.dropdown
@@ -41,34 +43,38 @@ html(lang='en')
                                     a.dropdown-item(href='#!') All Products
                                 li
                                     hr.dropdown-divider
-                                li
-                                    a.dropdown-item(href='#!') Popular Items
-                                li
-                                    a.dropdown-item(href='#!') New Arrivals
+                                each cat, index in categories
+                                    li
+                                        a.dropdown-item(href='#') #{cat}
 
                     button.btn.btn-outline-dark#btnLogin
-                        i.bi-cart-fill.me-1
+                        i.bi-person-fill.me-1
                         | Login
 
+                    //Boton para mostrar cuando este logeado, ahora oculto .btn-check
+                    button.btn.btn-outline-dark.btn-check#btnLoggedin
+                        i.bi-person-check-fill
+                        | Loggedin
+                    
                     form.d-flex
 
-                        button.btn.btn-outline-dark(type='submit')
+                        button.btn.btn-outline-dark(type='submit')#btnBasket
                             i.bi-cart-fill.me-1
-                            | 
+                            |
                             span#basketCount.badge.bg-dark.text-white.ms-1.rounded-pill 0
 
         // Header
         header.bg-dark.py-5#header
             .container.px-4.px-lg-5.my-5
                 .text-center.text-white
-                    h1.display-4.fw-bolder Shop in style
-                    p.lead.fw-normal.text-white-50.mb-0 With this shop hompeage template
+                    h1.display-4.fw-bolder#headerTitle Shop in style
+                    p.lead.fw-normal.text-white-50.mb-0#headerSubTitle With this shop hompeage template
 
         // Section
         section.py-5
             .container.px-4.px-lg-5.mt-5
                 //Login section
-                .row.row-cols-2.row-cols-md-3.justify-content-center#viewLogin
+                .row.row-cols-2.justify-content-center#viewLogin
                     .col.mb-5
                         div.row.justify-content-center(style="--bs-gutter-x: 0rem;")
                             div.card

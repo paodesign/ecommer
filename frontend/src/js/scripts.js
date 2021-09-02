@@ -9,6 +9,10 @@ const btnLogin = document.querySelector("#btnLogin");
 const sessionStorageKey = "userKey";
 const apiUrl = 'http://localhost:8080/';
 var listProducts = [];
+const headerTitle = document.querySelector("#headerTitle");
+const headerSubTitle = document.querySelector("#headerSubTitle");
+const btnBasket = document.querySelector("#btnBasket");
+const btnHome = document.querySelector("#btnHome");
 
 
 window.addEventListener('load', () =>{
@@ -28,31 +32,47 @@ function getStoredUser(){
     sessionStorage.getItem(sessionStorageKey);
 }
 
+btnBasket.addEventListener('click', ()=>{
+    viewByOperationType("basket");
+})
+
+btnHome.addEventListener('click', ()=>{
+    viewByOperationType("products");
+    loadProductsList();
+})
+
 
 function viewByOperationType(operationType){
     if(operationType == "login"){
-        basketSection.className='hide-div',
-        productsSection.className='hide-div',
-        checkoutSection.className='hide-div',
-        loginSection.classList.remove("hide-div")
+        basketSection.classList.add('hide-div');
+        productsSection.classList.add('hide-div');
+        checkoutSection.classList.add('hide-div');
+        loginSection.classList.remove("hide-div");
+        renderHeader("Login","Bienvenidos a esta web.")
     }
 
     else if(operationType == "basket"){
-        loginSection.className='hide-div',
-        productsSection.className='hide-div',
-        checkoutSection.className='hide-div'
+        loginSection.classList.add('hide-div');
+        productsSection.classList.add('hide-div');
+        checkoutSection.classList.add('hide-div');
+        basketSection.classList.remove("hide-div");
+        renderHeader("Basket","Este sera tu carrito de compras.")
     }
 
     else if(operationType == "products"){
-        loginSection.className='hide-div',
-        basketSection.className='hide-div',
-        checkoutSection.className='hide-div'
+        loginSection.classList.add('hide-div');
+        basketSection.classList.add('hide-div');
+        checkoutSection.classList.add('hide-div');
+        productsSection.classList.remove("hide-div");
+        renderHeader("Products","Estos son los productos disponibles.")
     }
 
     else if(operationType == "checkout"){
-        loginSection.className='hide-div',
-        basketSection.className='hide-div',
-        productsSection.className='hide-div'
+        loginSection.classList.add('hide-div');
+        basketSection.classList.add('hide-div');
+        productsSection.classList.add('hide-div');
+        checkoutSection.classList.remove("hide-div");
+        renderHeader("Products","Realiza tu checkout.")
     }
     else{
         document.write("soy el else")
@@ -61,13 +81,6 @@ function viewByOperationType(operationType){
 
 }
 
-
-
-const products = [ 
-    {id:1, name:"product1", price: 40, rated: 5}, 
-    {id:2, name:"product2", price: 15.5, isSale: true}, 
-    {id:3, name:"product3", price: 70, isSale: true},
-    {id:4, name:"product4", price: 123, rated: 3}]
 
 function loadProductsList() {
     fetch(apiUrl + "products")
@@ -116,6 +129,13 @@ function createProductCard(product) {
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">${product.name}</h5> 
+                                <div class= "d-flex justify-content-center small text-warning mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                </div>
                                 ${priceFormat(product.unitPrice)}
                             </div>
                         </div>`
@@ -134,9 +154,17 @@ function createProductCard(product) {
     category.style="top: 0.5rem; right: 0.5rem"
     category.innerHTML= `${product.category}`
     divCard.append(category);        
-   
 
     return divCard;
+}
+
+function renderHeader(title, subtitle){
+    if(title){
+        headerTitle.textContent = title;
+    }
+    if(subtitle){
+        headerSubTitle.textContent = subtitle;
+    }
 }
 
 
