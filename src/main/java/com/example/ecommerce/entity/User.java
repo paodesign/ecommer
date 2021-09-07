@@ -1,10 +1,13 @@
 package com.example.ecommerce.entity;
 
+import java.lang.StackWalker.Option;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.*;
 
 @Entity(name = "Users")
@@ -96,6 +99,15 @@ public class User {
 
     public void setContact(Contact contactInfo) {
         this.contactInfo = contactInfo;
+    }
+
+    public Optional<Basket> getActiveBasket(){
+        for (Basket basket : baskets) {
+            if (basket.getStatus() == BasketStatus.INPROGRESS){
+                return Optional.of(basket);
+            }
+        }
+        return Optional.ofNullable(null);
     }
 
     private String saltyPassword(String pwd){
