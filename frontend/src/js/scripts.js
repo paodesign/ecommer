@@ -6,6 +6,7 @@ const basketSection = document.querySelector("#viewBasket");
 const productsSection = document.querySelector("#viewProduct");
 const checkoutSection = document.querySelector("#viewCheckout");
 const btnLogin = document.querySelector("#btnLogin");
+const btnLogout = document.querySelector("#btnLogout");
 const sessionStorageKey = "userKey";
 const apiUrl = 'http://localhost:8080/';
 var listProducts = [];
@@ -13,94 +14,137 @@ const headerTitle = document.querySelector("#headerTitle");
 const headerSubTitle = document.querySelector("#headerSubTitle");
 const btnBasket = document.querySelector("#btnBasket");
 const btnHome = document.querySelector("#btnHome");
+const username = document.querySelector("#username");
+const password = document.querySelector("#password");
 
 
-window.addEventListener('load', () =>{
+window.addEventListener('load', () => {
     viewByOperationType("products");
     loadProductsList();
+    if(getStoredUser()){
+        viewAsLoggedin();
+    }
 }, false);
 
-btnLogin.addEventListener('click', ()=>{
+btnLogin.addEventListener('click', () => {
     viewByOperationType("login");
 })
 
-function storeUser(user){
-    sessionStorage.setItem(sessionStorageKey,user);
+function storeUser(user) {
+    let json = JSON.stringify(user);
+    sessionStorage.setItem(sessionStorageKey, json);
 }
 
-function getStoredUser(){
-    sessionStorage.getItem(sessionStorageKey);
+function getStoredUser() {
+    let json = sessionStorage.getItem(sessionStorageKey);
+    return JSON.parse(json);
 }
 
-btnBasket.addEventListener('click', ()=>{
+btnBasket.addEventListener('click', () => {
     viewByOperationType("basket");
 })
 
-btnHome.addEventListener('click', ()=>{
+btnHome.addEventListener('click', () => {
     viewByOperationType("products");
     loadProductsList();
 })
 
+btnLogout.addEventListener('click', ()=>{
+    sessionStorage.removeItem(sessionStorageKey);
+    location.reload();
+})
 
-function viewByOperationType(operationType){
-    if(operationType == "login"){
+function viewAsLoggedin(){
+    btnLogin.classList.add("btn-check");
+    btnLogout.classList.remove("btn-check");
+}
+
+function login() {
+
+    const login = {
+        username: username.value,
+        password: password.value
+    }
+    const options = {
+        method: "POST",
+        body: JSON.stringify(login),
+        headers: { 'Content-Type': 'application/json' }
+    }
+
+    fetch(apiUrl + "users/login", options)
+        .then(response => response.json())
+        .then(userLogged => {
+            if (userLogged) {
+                storeUser(userLogged);
+                viewByOperationType("products");
+                username.value = "";
+                password.value = "";
+                viewAsLoggedin();
+                loadProductsList();
+            }
+        })
+        .catch(err => alert("Usuario o contaseña incorrecto."));
+}
+
+function viewByOperationType(operationType) {
+    if (operationType == "login") {
         basketSection.classList.add('hide-div');
         productsSection.classList.add('hide-div');
         checkoutSection.classList.add('hide-div');
         loginSection.classList.remove("hide-div");
-        renderHeader("Login","Bienvenidos a esta web.")
+        renderHeader("Login", "Bienvenidos a esta web.")
     }
 
-    else if(operationType == "basket"){
+    else if (operationType == "basket") {
         loginSection.classList.add('hide-div');
         productsSection.classList.add('hide-div');
         checkoutSection.classList.add('hide-div');
         basketSection.classList.remove("hide-div");
-        renderHeader("Basket","Este sera tu carrito de compras.")
+        renderHeader("Basket", "Este sera tu carrito de compras.")
     }
 
-    else if(operationType == "products"){
+    else if (operationType == "products") {
         loginSection.classList.add('hide-div');
         basketSection.classList.add('hide-div');
         checkoutSection.classList.add('hide-div');
         productsSection.classList.remove("hide-div");
-        renderHeader("Products","Estos son los productos disponibles.")
+        renderHeader("Products", "Estos son los productos disponibles.")
     }
 
-    else if(operationType == "checkout"){
+    else if (operationType == "checkout") {
         loginSection.classList.add('hide-div');
         basketSection.classList.add('hide-div');
         productsSection.classList.add('hide-div');
         checkoutSection.classList.remove("hide-div");
-        renderHeader("Products","Realiza tu checkout.")
+        renderHeader("Products", "Realiza tu checkout.")
     }
-    else{
+    else {
         document.write("soy el else")
         console.error("no funciona")
     }
 
 }
 
-
 function loadProductsList() {
+    productsSection.innerHTML = "";
     fetch(apiUrl + "products")
         .then(response => response.json())
         .then(prods => listProducts = prods)
-        .then(()=>renderProductsList())
+        .then(() => renderProductsList())
 
 }
-    
+
 function priceFormat(unitPrice) {
     // Create our number formatter.
     var formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-    
+
         // These options are needed to round to whole numbers if that's what you want.
         //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
         //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
     });
-    return formatter.format(unitPrice);    
+    return formatter.format(unitPrice);
 }
 
 function renderProductsList() {
@@ -109,14 +153,6 @@ function renderProductsList() {
         div.className = "col mb-5";
         div.appendChild(createProductCard(prd));
         document.querySelector('#viewProduct').append(div);
-
-        const btnAdd = document.querySelector("#btnAdd"+prd.id);
-        btnAdd.addEventListener("click", ev => {
-            const basketSpan = document.querySelector("#basketCount");
-            basketSpan.textContent = prd.id
-        })
-        
-        
     })
 }
 
@@ -140,29 +176,38 @@ function createProductCard(product) {
                             </div>
                         </div>`
 
-    const footer = document.createElement("div");
-    footer.className="card-footer p-4 pt-0 border-top-0 bg-transparent";
-    footer.innerHTML=`
-    <div class="text-center">
-        <a class="btn btn-outline-dark mt-auto" id="btnAdd${product.id}" href="#">Agregar</a>
-    </div>`
-    divCard.append(footer);
+    if(getStoredUser()){        
+        const footer = document.createElement("div");
+        footer.className = "card-footer p-4 pt-0 border-top-0 bg-transparent";
+        footer.innerHTML = `
+            <div class="text-center">
+                <a class="btn btn-outline-dark mt-auto" id="btnAdd${product.id}" href="#">Agregar</a>
+            </div>`
+
+        divCard.append(footer);
+
+        const btnAdd = document.querySelector("#btnAdd" + prd.id);
+        btnAdd.addEventListener("click", ev => {
+            const basketSpan = document.querySelector("#basketCount");
+            basketSpan.textContent = prd.id
+        })
+    }
 
 
     const category = document.createElement("div");
-    category.className="badge bg-dark text-white position-absolute";
-    category.style="top: 0.5rem; right: 0.5rem"
-    category.innerHTML= `${product.category}`
-    divCard.append(category);        
+    category.className = "badge bg-dark text-white position-absolute";
+    category.style = "top: 0.5rem; right: 0.5rem"
+    category.innerHTML = `${product.category}`
+    divCard.append(category);
 
     return divCard;
 }
 
-function renderHeader(title, subtitle){
-    if(title){
+function renderHeader(title, subtitle) {
+    if (title) {
         headerTitle.textContent = title;
     }
-    if(subtitle){
+    if (subtitle) {
         headerSubTitle.textContent = subtitle;
     }
 }
