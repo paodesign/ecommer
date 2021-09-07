@@ -108,7 +108,10 @@ html(lang='en')
                                     span.badge.bg-dark.text-white.ms-1.badge-pill 3 in cart
                                     h3 $100
                             div
-                                button.btn.btn-outline-dark.mt-auto Remove 
+                                button.btn.btn-outline-dark.mt-auto#btnBasketRemove Remove 
+                         br
+                        .text-center
+                            button.btn.btn-outline-dark.mt-auto#btnBasketCheckout Checkout 
                 
                 br
 
@@ -143,9 +146,7 @@ html(lang='en')
 
             //Checkout section                    
             .container#viewCheckout
-                div.py-5.text-center
-                    h2 Checkout form
-                    p.lead Detalle de tu compra.
+              
                 .row 
                     div.col-md-4.order-md-2.mb-4
                         h4.d-flex.justify-content-between.align-items-center.mb-3
@@ -222,7 +223,7 @@ html(lang='en')
                         
                         hr.mb-4
                         div.text-center
-                            button(type="submit").btn.btn-outline-dark.btn-lg.btn-block Checkout            
+                            button(type="submit").btn.btn-outline-dark.btn-lg.btn-block Finish            
                     
         // Footer
         footer.py-5.bg-dark

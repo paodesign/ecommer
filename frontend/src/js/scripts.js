@@ -12,19 +12,28 @@ const productsSection = document.querySelector("#viewProduct");
 const checkoutSection = document.querySelector("#viewCheckout");
 const btnLogin = document.querySelector("#btnLogin");
 const btnLogout = document.querySelector("#btnLogout");
-const sessionStorageKey = "userKey";
-const apiUrl = 'http://localhost:8080/';
-var listProducts = [];
 const headerTitle = document.querySelector("#headerTitle");
 const headerSubTitle = document.querySelector("#headerSubTitle");
 const btnBasket = document.querySelector("#btnBasket");
 const btnHome = document.querySelector("#btnHome");
 const username = document.querySelector("#username");
 const password = document.querySelector("#password");
+const btnBasketRemove = document.querySelector("#btnBasketRemove");
+const btnBasketCheckout = document.querySelector("#btnBasketCheckout");
+const sessionStorageKey = "userKey";
+const apiUrl = 'http://localhost:8080/';
+var listProducts = [];
+var basketItems = [];
 
 window.addEventListener('load', () => {
     if (getStoredUser()) {
         viewNavBarAsLoggedin();
+        fetch(apiUrl+"/basket/"+getStoredUser().basket)
+            .then(resp => resp.json())
+            .then(basket =>{
+                basketItems = basket.items;
+                updateNavBasketCount(basket.products);
+            })
     }
     viewByOperationType("products");
 }, false);
@@ -50,6 +59,17 @@ btnHome.addEventListener('click', () => {
 btnLogout.addEventListener('click', () => {
     sessionStorage.removeItem(sessionStorageKey);
     location.reload();
+})
+
+btnBasketRemove.addEventListener('click', () => {
+    basketSection.remove()
+    if (basketSection) {
+        viewByOperationType("products")
+    }
+
+})
+btnBasketCheckout.addEventListener('click', ()=>{
+    viewByOperationType("checkout")
 })
 
 function viewNavBarAsLoggedin() {
@@ -87,16 +107,19 @@ function login() {
 function addProductToBasket(id) {
     const options = {
         method: "POST",
+        //mode: "no-cors",
         headers: { 'Content-Type': 'application/json' }
     }
 
-    fetch(apiUrl + "basket/" + getStoredUser().basket + "/product/" + id)
-        .then(resp => resp.json())
-        .then(data => {
-            const basketSpan = document.querySelector("#basketCount");
-            basketSpan.textContent = id
-        });
+    fetch(apiUrl + "basket/" + getStoredUser().basket + "/product/" + id, options)
+    .then(response => response.json())
+    .then(data => updateNavBasketCount(data.products));
 };
+
+function updateNavBasketCount(count){
+    const basketSpan = document.querySelector("#basketCount");
+    basketSpan.textContent = count;
+}
 
 function loadBasket() {
     viewByOperationType("basket");
@@ -133,7 +156,7 @@ function viewByOperationType(operationType) {
         basketSection.classList.add('hide-div');
         productsSection.classList.add('hide-div');
         checkoutSection.classList.remove("hide-div");
-        renderHeader("Products", "Realiza tu checkout.")
+        renderHeader("Checkout", "Realiza tu checkout.")
     }
     else {
         document.write("soy el else")

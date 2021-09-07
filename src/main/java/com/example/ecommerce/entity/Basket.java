@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+
 @Entity(name = "Baskets")
 public class Basket {
     @Id
@@ -60,6 +61,15 @@ public class Basket {
 
     public List<BasketDetail> getDetails() {
         return details;
+    }
+
+    public int getTotalProducts(){
+        int count = 0;
+        for (BasketDetail basketDetail : details) {
+            count += basketDetail.getAmount();
+
+        }
+        return count;
     }
 
     public Boolean existProduct(Product product) {

@@ -2,24 +2,17 @@ package com.example.ecommerce.controller;
 
 import java.util.Optional;
 
+import com.example.ecommerce.dto.BasketDto;
 import com.example.ecommerce.entity.*;
 import com.example.ecommerce.repository.BasketRepository;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.repository.UserRepository;
 
+import org.apache.logging.log4j.util.ProcessIdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -47,17 +40,16 @@ public class BasketController {
     }
 
     @GetMapping(value = "/{id}")
-    public @ResponseBody ResponseEntity<Basket> getById(@PathVariable int id) {
+    public @ResponseBody ResponseEntity<BasketDto> getById(@PathVariable int id) {
         var opt = basketRepository.findById(id);
 
         if (opt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        var basket = opt.get();
+        var basket = new BasketDto();
+        basket.mapFromEntity(opt.get());
         return ResponseEntity.status(HttpStatus.OK).body(basket);
-
-        //return ResponseEntity.ok(basket);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -85,8 +77,8 @@ public class BasketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{id}/products/{prodId}")
-    public ResponseEntity<Basket> addProductToBasket(@PathVariable int id, @PathVariable int prodId){
+    @PostMapping(value = "/{id}/product/{prodId}")
+    public ResponseEntity<BasketDto> addProductToBasket(@PathVariable int id, @PathVariable int prodId){
         Optional<Product> product = productRepository.findById(prodId);
         Optional<Basket> basket = basketRepository.findById(id);
 
@@ -98,10 +90,13 @@ public class BasketController {
         newBasket.addProduct(product.get());
         newBasket = basketRepository.save(newBasket);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(newBasket);
+        BasketDto response = new BasketDto();
+        response.mapFromEntity(newBasket);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping("/{id}/products/{prodId}")
+    @DeleteMapping("/{id}/product/{prodId}")
     public ResponseEntity<?> deleteProduct(@PathVariable int id, @PathVariable int prodId) {
         Optional<Basket> basketTemp = basketRepository.findById(id);
         Boolean existProduct = basketTemp.get().existProduct(prodId);

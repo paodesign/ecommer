@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e4ae3c5a-43d4-45e3-9a9a-18e79cbe0a9e",
+		"_postman_id": "87b411fd-0491-4ca3-acfa-f3ef11438cda",
 		"name": "ecommerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -303,7 +303,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n    {\r\n    \r\n    \"name\": \"Sultano\",\r\n    \"lastname\": \"De tal\",\r\n    \"address\": \"Av. libertad 2021\",\r\n    \"startDate\": \"2021-10-11T22:10:29.2185891\"\r\n    }",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -311,13 +311,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url_ecommerce}}/basket/products/1",
+							"raw": "{{url_ecommerce}}/basket/1/product/1",
 							"host": [
 								"{{url_ecommerce}}"
 							],
 							"path": [
 								"basket",
-								"products",
+								"1",
+								"product",
 								"1"
 							]
 						}
